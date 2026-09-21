@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script>
+      (function () {
+        try {
+          var nativeFetch = typeof window !== 'undefined' && typeof window.fetch === 'function' ? window.fetch.bind(window) : null;
+          var customFetch = null;
+          Object.defineProperty(window, 'fetch', {
+            get: function () {
+              return customFetch || nativeFetch;
+            },
+            set: function (fn) {
+              customFetch = fn;
+            },
+            configurable: true,
+            enumerable: true
+          });
+        } catch (e) {}
+
+        try {
+          if (typeof Window !== 'undefined' && Window.prototype) {
+            var desc = Object.getOwnPropertyDescriptor(Window.prototype, 'fetch');
+            if (desc && desc.get && !desc.set) {
+              Object.defineProperty(Window.prototype, 'fetch', {
+                get: desc.get,
+                set: function (val) {
+                  Object.defineProperty(this, 'fetch', {
+                    value: val,
+                    writable: true,
+                    configurable: true,
+                    enumerable: true
+                  });
+                },
+                configurable: true,
+                enumerable: desc.enumerable
+              });
+            }
+          }
+        } catch (err) {}
+      })();
+    </script>
+    <title>Coffee — Savor the Perfect Brew</title>
+    <meta name="description" content="Artisanal coffee house webpage featuring handcrafted brews, specialties, morning offers, and tasting flights." />
+    <meta property="og:title" content="Coffee — Savor the Perfect Brew" />
+    <meta property="og:description" content="Artisanal coffee house webpage featuring handcrafted brews, specialties, morning offers, and tasting flights." />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
+

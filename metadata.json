@@ -1,0 +1,6 @@
+{
+  "name": "Coffee",
+  "description": "Artisanal coffee house webpage featuring handcrafted brews, specialties, morning offers, and tasting flights.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
